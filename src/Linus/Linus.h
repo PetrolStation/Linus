@@ -1,29 +1,13 @@
 #pragma once
 
-#include <Core/Window/Window.h>
+#include "Core/Window/WindowResourceCreator.h"
+#include "LinusWindow.h"
 
-
-namespace PetrolEngine{
-    class Linus : public WindowApi {
+namespace PetrolEngine {
+    class Linus_: public WindowResourceCreator {
     public:
-        std::vector<char> buffer;
-        int miceHandle;
-
-        void clear();
-        void swapBuffers() override;
-
-        void showCursor(bool show   ) override {};
-        void setVSync  (bool enabled) override {};
-        void setIcon   (Image* image) override {};
-        void pollEvents(            ) override {};
-        void close     (            ) override {};
-
-        int init() override { return 0; };
-
-        bool shouldClose() override { return false; };
-        bool isPressed(Keys key) override { return false; };
-
-        Linus(uint width, uint height);
-        ~Linus() override = default;
+        WindowApi* newWindow(int width, int height, const String& title) override { return new Linus(width, height, title); }
     };
+
+    extern Linus_ Linus;
 }
